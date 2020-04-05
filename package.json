@@ -1,6 +1,6 @@
 {
   "name": "nice-react-carousel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A carousel for your react project.",
   "keywords": [
     "carousel",
@@ -77,7 +77,7 @@
     "url": "git+https://github.com/renadr/nice-react-carousel.git"
   },
   "author": "Adrien Lemaire",
-  "homepage": "https://github.com/renadr/nice-react-carousel#readme",
+  "homepage": "https://nice-react-carousel.netlify.com/",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/renadr/nice-react-carousel/issues"
