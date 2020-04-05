@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, ReactNode, FunctionComponent } from "react";
-import { CarouselStyled, CarouselContainer, CarouselItem } from "./styles";
+import { CarouselStyled, CarouselContainer, CarouselItem, CarouselArrow, CarouselSlidesContainer, Arrow } from "./styles";
 
 export interface CarouselProps {
   itemsBySlide: number,
@@ -23,7 +23,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const shouldNavigatePrevious = active > 0;
   const shouldNavigateNext =
   active < children.length - 1 && itemsBySlide + active <= children.length - 1;
-  
+
   const resizeWidth = () =>
     setContainerWidth(ref.current ? ref.current.offsetWidth : 0);
   const move = () => setTranslateSpace(active * widthItem);
@@ -88,7 +88,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   });
   useEffect(() => move(), [active, dragged]);
   return (
-    <React.Fragment>
+    <CarouselContainer>
       <CarouselStyled
         ref={ref}
         onMouseDown={onDragStartMouse}
@@ -98,7 +98,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
         onTouchMove={onTouchMove}
         onTouchEnd={onDragEndTouch}
       >
-        <CarouselContainer
+        <CarouselSlidesContainer
           style={{ transform: `translateX(${translateSpace * -1}px)` }}
           dragged={dragged}
         >
@@ -107,11 +107,12 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
               {item}
             </CarouselItem>
           ))}
-        </CarouselContainer>
+        </CarouselSlidesContainer>
       </CarouselStyled>
-      {shouldNavigatePrevious && <button onClick={previous}>Précédent</button>}
-      {shouldNavigateNext && <button onClick={next}>Suivant</button>}
-    </React.Fragment>
+      {shouldNavigatePrevious && (
+      <CarouselArrow onClick={previous} left><Arrow left/></CarouselArrow>)}
+      {shouldNavigateNext && <CarouselArrow onClick={next} right><Arrow right/></CarouselArrow>}
+    </CarouselContainer>
   );
 };
 export default Carousel;

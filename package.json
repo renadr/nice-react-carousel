@@ -37,6 +37,7 @@
     "rollup-plugin-typescript2": "^0.27.0",
     "standard": "^14.3.3",
     "standard-prettier": "^1.0.1",
+    "svg-inline-loader": "^0.8.2",
     "ts-jest": "^25.3.1",
     "typescript": "^3.8.3"
   },

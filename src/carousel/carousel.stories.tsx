@@ -1,7 +1,7 @@
 import React from 'react';
 import { withKnobs, number } from "@storybook/addon-knobs";
 
-import { Card, StoryBookTitle, StoryBookDesc } from "../styles";
+import { Card, Title, Background, Desc, StoryBookTitle, StoryBookDesc } from "../styles";
 import Carousel from "./index";
 
 export default {
@@ -13,12 +13,36 @@ export const CarouselExample = () =>(
   <StoryBookTitle>Playground</StoryBookTitle>
   <StoryBookDesc>Here you can try the component. Have fun with the props in the Knobs tab 😉</StoryBookDesc>
   <Carousel itemsBySlide={number("itemsBySlide", 1)}>
-    <Card>1</Card>
-    <Card>2</Card>
-    <Card>3</Card>
-    <Card>4</Card>
-    <Card>5</Card>
-    <Card>6</Card>
+    <Card>
+      <Background/>
+      <Title>Title 1</Title>
+      <Desc>Lorem ipsum</Desc>
+    </Card>
+    <Card>
+      <Background/>
+      <Title>Title 2</Title>
+      <Desc>Lorem ipsum</Desc>
+    </Card>
+    <Card>
+      <Background/>
+      <Title>Title 3</Title>
+      <Desc>Lorem ipsum</Desc>
+    </Card>
+    <Card>
+      <Background/>
+      <Title>Title 4</Title>
+      <Desc>Lorem ipsum</Desc>
+    </Card>
+    <Card>
+      <Background/>
+      <Title>Title 5</Title>
+      <Desc>Lorem ipsum</Desc>
+    </Card>
+    <Card>
+      <Background/>
+      <Title>Title 6</Title>
+      <Desc>Lorem ipsum</Desc>
+    </Card>
   </Carousel>
   </>
 );

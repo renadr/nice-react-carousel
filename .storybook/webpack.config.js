@@ -12,7 +12,7 @@ module.exports = ({ config }) => {
         options: {
           configFileName: './tsconfig.json'
         }
-      }
+      },
     ]
   })
   config.resolve.extensions.push('.ts', '.tsx')
