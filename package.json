@@ -13,7 +13,7 @@
     "storybook": "start-storybook"
   },
   "keywords": [],
-  "author": "Adrien Lemaire",
+  "author": "renadr",
   "license": "ISC",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
