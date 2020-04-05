@@ -1,6 +1,6 @@
-# nice-react-carousel
+# 🎠 nice-react-carousel
 
-A nice carousel for your React project. 🎠
+A nice carousel for your React project. 
 
 ### Try it  
 
