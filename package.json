@@ -1,22 +1,23 @@
 {
   "name": "nice-react-carousel",
-  "version": "0.0.1",
-  "description": "",
-  "main": "build/index.js",
-  "module": "build/index.es.js",
-  "jsnext:main": "build/index.es.js",
-  "scripts": {
-    "build": "rollup -c",
-    "lint": "standard",
-    "format": "prettier-standard --format",
-    "test": "jest --coverage",
-    "storybook": "start-storybook"
-  },
-  "keywords": [],
-  "author": "renadr",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+  "version": "1.0.1",
+  "description": "A carousel for your react project.",
+  "keywords": [
+    "carousel",
+    "slider",
+    "nice-react-carousel",
+    "react-carousel",
+    "slide",
+    "react"
+  ],
+  "main": "rollup.config.js",
+  "dependencies": {
+    "@storybook/addon-knobs": "^5.3.18",
+    "@storybook/addon-storysource": "^5.3.18",
+    "@types/styled-components": "^5.0.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "styled-components": "^5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -64,12 +65,21 @@
     "react": "^16",
     "react-dom": "^16"
   },
-  "dependencies": {
-    "@storybook/addon-knobs": "^5.3.18",
-    "@storybook/addon-storysource": "^5.3.18",
-    "@types/styled-components": "^5.0.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^5.0.1"
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "standard",
+    "format": "prettier-standard --format",
+    "test": "jest --coverage",
+    "storybook": "start-storybook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renadr/nice-react-carousel.git"
+  },
+  "author": "Adrien Lemaire",
+  "homepage": "https://github.com/renadr/nice-react-carousel#readme",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/renadr/nice-react-carousel/issues"
   }
 }
