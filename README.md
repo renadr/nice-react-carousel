@@ -5,25 +5,11 @@
     🎠
     <br />
     nice-react-carousel
-    <br />
-    <br />
-    <br />
-    <br />
   </h1>
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
+  A nice carousel for your React project. 
   <br />
   <br />
 </div>
-
-# 🎠 nice-react-carousel
-
-A nice carousel for your React project. 
 
 ### Try it  
 
