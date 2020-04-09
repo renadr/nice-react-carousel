@@ -1,7 +1,5 @@
 <div align="center">
   <h1>
-    <br/>
-    <br/>
     🎠
     <br />
     nice-react-carousel
