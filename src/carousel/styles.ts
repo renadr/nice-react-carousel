@@ -95,3 +95,19 @@ export const CarouselArrow = styled.button<{ left?: boolean, right?: boolean }>`
     box-shadow: 0 2px 10px 1px rgba(0, 0, 0, .3);
   }
 `;
+
+export const Dot = styled.button<{ active?: boolean }>`
+  height : 5px;
+  width: 20px;
+  margin: 3px;
+  padding: 0;
+  border-radius: 20px;
+  background-color: ${props => props.active ? '#17294d' : '#EFEFEF' };
+  border: none;
+`;
+
+export const DotsList = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`; 

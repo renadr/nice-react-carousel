@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, ReactNode, FunctionComponent } from "react";
-import { CarouselStyled, CarouselContainer, CarouselItem, CarouselArrow, CarouselSlidesContainer, Arrow } from "./styles";
+import { CarouselStyled, CarouselContainer, CarouselItem, CarouselArrow, CarouselSlidesContainer, Arrow, Dot, DotsList } from "./styles";
 
 export interface CarouselProps {
   itemsBySlide: number,
@@ -112,6 +112,9 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
       {shouldNavigatePrevious && (
       <CarouselArrow onClick={previous} left><Arrow left/></CarouselArrow>)}
       {shouldNavigateNext && <CarouselArrow onClick={next} right><Arrow right/></CarouselArrow>}
+      <DotsList>
+        {children.map((_, id) => <Dot key={id} active={active === id} onClick={()=>setActive(id)}/>)}
+      </DotsList>
     </CarouselContainer>
   );
 };
