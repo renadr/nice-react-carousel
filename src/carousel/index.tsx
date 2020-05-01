@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef, ReactNode, FunctionComponent } from
 import { CarouselStyled, CarouselContainer, CarouselItem, CarouselArrow, CarouselSlidesContainer, Arrow, Dot, DotsList } from "./styles";
 
 export interface CarouselProps {
-  itemsBySlide: number,
+  itemsToShow: number,
+  itemsToSlide: number,
   children: ReactNode[],
+  dots?: ReactNode | boolean
 }
 
 const Carousel: FunctionComponent<CarouselProps> = props => {
-  const { children = [], itemsBySlide = 1 } = props;
+  const { children = [], itemsToShow = 1, itemsToSlide = 1, dots } = props;
 
   const ref = useRef<HTMLInputElement>(null);
 
@@ -16,19 +18,19 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const [dragStartX, setDragStartX] = useState(0);
   const [dragged, setDragged] = useState(false);
   const [leftDrag, setLeftDrag] = useState(0);
-  const widthItem = containerWidth / itemsBySlide;
+  const widthItem = containerWidth / itemsToShow;
   const [translateSpace, setTranslateSpace] = useState(widthItem * active);
   const [saveTranslateSpace, setSaveTranslateSpace] = useState(0);
 
   const shouldNavigatePrevious = active > 0;
   const shouldNavigateNext =
-  active < children.length - 1 && itemsBySlide + active <= children.length - 1;
+  active < children.length - 1 && itemsToShow + active <= children.length - 1;
 
   const resizeWidth = () =>
     setContainerWidth(ref.current ? ref.current.offsetWidth : 0);
   const move = () => setTranslateSpace(active * widthItem);
-  const previous = () => shouldNavigatePrevious && setActive(active - 1);
-  const next = () => shouldNavigateNext && setActive(active + 1);
+  const previous = () => shouldNavigatePrevious && setActive(active - itemsToSlide);
+  const next = () => shouldNavigateNext && setActive(active + itemsToSlide);
 
   const onMouseMove = (event: MouseEvent) => {
     if (dragged) {
@@ -65,7 +67,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
       setDragged(false);
       let newActive = active + Math.round((leftDrag * -1) / widthItem);
       if (newActive < 0) newActive = 0;
-      if (newActive > children.length - itemsBySlide) newActive = active;
+      if (newActive > children.length - itemsToShow) newActive = active;
       setActive(newActive);
     }
   };
@@ -87,6 +89,11 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     };
   });
   useEffect(() => move(), [active, dragged]);
+
+  const aaa = (children.length / itemsToShow) ;
+
+  console.log([...Array(aaa).keys()])
+
   return (
     <CarouselContainer>
       <CarouselStyled
@@ -109,12 +116,14 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
           ))}
         </CarouselSlidesContainer>
       </CarouselStyled>
-      {shouldNavigatePrevious && (
-      <CarouselArrow onClick={previous} left><Arrow left/></CarouselArrow>)}
+      {shouldNavigatePrevious && (<CarouselArrow onClick={previous} left><Arrow left/></CarouselArrow>)}
       {shouldNavigateNext && <CarouselArrow onClick={next} right><Arrow right/></CarouselArrow>}
-      <DotsList>
-        {children.map((_, id) => <Dot key={id} active={active === id} onClick={()=>setActive(id)}/>)}
-      </DotsList>
+      {dots && (
+        <DotsList>
+          {[...Array(aaa).keys()].map((_, id) => <Dot key={id} active={active === id * itemsToSlide} onClick={()=>setActive(id)}/>)}
+        </DotsList>
+      )}
+      
     </CarouselContainer>
   );
 };

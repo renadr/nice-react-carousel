@@ -12,7 +12,7 @@ export const CarouselExample = () =>(
   <>
   <StoryBookTitle>Playground</StoryBookTitle>
   <StoryBookDesc>Here you can try the component. Have fun with the props in the Knobs tab 😉</StoryBookDesc>
-  <Carousel itemsBySlide={number("itemsBySlide", 1)}>
+  <Carousel itemsToShow={number("itemsToShow", 1)} itemsToSlide={number("itemsToSlide", 1)} dots={true}>
     <Card>
       <Background/>
       <Title>Title 1</Title>
