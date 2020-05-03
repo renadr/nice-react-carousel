@@ -14,6 +14,7 @@ export const CarouselStyled = styled.div<{ ref: any, onMouseDown: any, onMouseMo
   -o-user-select: none;
   user-select: none;
   cursor: grab;
+  
 `;
 
 export const CarouselSlidesContainer = styled.div<{ dragged: boolean }>`
@@ -26,14 +27,20 @@ export const CarouselSlidesContainer = styled.div<{ dragged: boolean }>`
   `}
 `;
 
-export const CarouselItem = styled.div<{ width: number }>`
+export const CarouselItem = styled.div<{ width?: number, padding?: number, margin?: number }>`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: ${props => props.width}px;
+  width: ${props => props.width ? props.width + "px" : 'auto'};
   border-radius: 30px;
   padding: 10px 0;
+  margin-right: ${props => props.margin ? props.margin : 0 }px;
+  padding: 0 ${props => props.padding ? props.padding/2 : 0 }px;
+  box-sizing: border-box;
+  & > * {
+    width: 100%;
+  }
 `;
 
 export const CarouselContainer = styled.div`
