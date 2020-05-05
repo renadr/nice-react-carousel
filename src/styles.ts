@@ -1,4 +1,5 @@
-import styled from "styled-components";
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+import styled from 'styled-components';
 
 export const StoryBookTitle = styled.h2`
   font-family: serif;
@@ -64,13 +65,13 @@ export const Card = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  box-shadow: 0 2px 4px 1px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   overflow: hidden;
-  transition: all ease .2s;
+  transition: all ease 0.2s;
   &:hover {
     transform: translateY(-5px) scale(1.01);
-    box-shadow: 0 8px 15px 1px rgba(0,0,0,0.10);
+    box-shadow: 0 8px 15px 1px rgba(0, 0, 0, 0.1);
     ${Background} {
       clip-path: circle(100% at 0% -80px);
       opacity: 0.05;
@@ -79,7 +80,7 @@ export const Card = styled.div`
       transform: scale(1.2) translateY(-70px);
       background-color: white;
       padding: 2px 10px;
-      box-shadow: 0 8px 15px 1px rgba(0,0,0,0.10);
+      box-shadow: 0 8px 15px 1px rgba(0, 0, 0, 0.1);
     }
     ${Desc} {
       transform: scale(1.2) translateY(-30px);
@@ -87,7 +88,7 @@ export const Card = styled.div`
   }
 `;
 
-export const ItemNews = styled.div<{ rounded?: boolean}>`
+export const ItemNews = styled.div<{ rounded?: boolean }>`
   height: 300px;
   background: linear-gradient(to right, #4e54c8, #8f94fb);
   background-size: cover;
@@ -108,7 +109,7 @@ export const ItemNews = styled.div<{ rounded?: boolean}>`
   }
 `;
 
-export const StyledArrow = styled.button<{ next?: boolean, prev?: boolean}>`
+export const StyledArrow = styled.button<{ next?: boolean; prev?: boolean }>`
   position: absolute;
   height: 300px;
   width: 50px;
@@ -126,6 +127,6 @@ export const StyledArrow = styled.button<{ next?: boolean, prev?: boolean}>`
     width: 60px;
   }
   &:after {
-    content: '${props => props.prev && 'Prev' || props.next && 'Next'}';
+    content: '${props => (props.prev && 'Prev') || (props.next && 'Next')}';
   }
 `;
