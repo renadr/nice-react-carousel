@@ -5,6 +5,7 @@
     nice-react-carousel
   </h1>
   A nice carousel for your React project. 
+  <br />
   <img alt="npm" src="https://img.shields.io/npm/v/nice-react-carousel">
   <img alt="npm" src="https://img.shields.io/npm/dt/nice-react-carousel">
   <br />
