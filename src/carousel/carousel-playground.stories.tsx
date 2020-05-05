@@ -1,5 +1,5 @@
 import React from 'react';
-import { withKnobs, number, select } from "@storybook/addon-knobs";
+import { withKnobs, number, select, boolean } from "@storybook/addon-knobs";
 
 import { Card, Title, Desc, Btn, StoryBookTitle, StoryBookDesc, ItemNews } from "../styles";
 import Carousel from "./index";
@@ -34,7 +34,7 @@ export const CarouselPlayground = () => (
   <StoryBookTitle>Playground</StoryBookTitle>
   <StoryBookDesc>Here you can try the component. Have fun with the props in the Knobs tab 😉</StoryBookDesc>
   <StoryBookDesc>If you can't see the Knobs tab : On the left side, click on the '...' button just next to the Storybook logo and click on 'Show addons'. Or just hit the 'A' key on your keyboard.</StoryBookDesc>
-  <Carousel mode={select("Mode", optionsMode, "normal")} itemsToShow={number("itemsToShow", 1)} space={number("space", 10, optionsSpace)} itemsWidth={number("itemsWidth (mode: variableWidth)", 200, optionsWidth)}>
+  <Carousel mode={select("Mode", optionsMode, "normal")} itemsToShow={number("itemsToShow", 1)} space={number("space", 10, optionsSpace)} itemsWidth={number("itemsWidth (mode: variableWidth)", 200, optionsWidth)} arrows={boolean("arrows", true)}>
   <ItemNews rounded style={{backgroundImage: 'linear-gradient(to right, #4e54c8, #8f94fb)'}}>
       <Title>Title 1</Title>
       <Desc>Lorem ipsum</Desc>

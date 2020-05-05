@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Title, Desc, StoryBookTitle, StoryBookDesc, ItemNews } from "../styles";
+import { Title, Desc, StoryBookTitle, StoryBookDesc, ItemNews, StyledArrow } from "../styles";
 import Carousel from "./index";
 
 export default {
@@ -11,7 +11,7 @@ export const CarouselNewsExample = () => (
   <>
   <StoryBookTitle>Exemple : Carousel for news</StoryBookTitle>
   <StoryBookDesc>#1</StoryBookDesc>
-  <Carousel itemsToShow={1} space={0}>
+  <Carousel customPrevArrow={<StyledArrow prev />} customNextArrow={<StyledArrow next />} itemsToShow={1} space={0}>
     <ItemNews style={{backgroundImage: 'url(https://images.pexels.com/photos/414171/pexels-photo-414171.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500)'}}>
       <Title>Title 1</Title>
       <Desc>Lorem ipsum</Desc>

@@ -107,3 +107,25 @@ export const ItemNews = styled.div<{ rounded?: boolean}>`
     margin-bottom: 40px;
   }
 `;
+
+export const StyledArrow = styled.button<{ next?: boolean, prev?: boolean}>`
+  position: absolute;
+  height: 300px;
+  width: 50px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  border: none;
+  ${props => props.next && 'right: 0;'}
+  ${props => props.prev && 'left: 0;'}
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  cursor: pointer;
+  transition: all ease 0.4s;
+  &:hover {
+    width: 60px;
+  }
+  &:after {
+    content: '${props => props.prev && 'Prev' || props.next && 'Next'}';
+  }
+`;

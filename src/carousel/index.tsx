@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, ReactNode, FunctionComponent } from "react";
+import React, { useState, useEffect, useRef, ReactNode, FunctionComponent, ReactElement } from "react";
 import { CarouselStyled, CarouselContainer, CarouselItem, CarouselArrow, CarouselSlidesContainer, Arrow, Dot, DotsList } from "./styles";
 
 export interface CarouselProps {
@@ -10,10 +10,13 @@ export interface CarouselProps {
   dots?: ReactNode | boolean,
   mode?: string,
   paddingContainer?: number,
+  arrows?: boolean,
+  customNextArrow?: ReactElement,
+  customPrevArrow?: ReactElement,
 }
 
 const Carousel: FunctionComponent<CarouselProps> = props => {
-  const { children = [], itemsToShow = 1, itemsToSlide = 1, dots = false, space = 10, itemsWidth = 100, mode = 'normal'} = props;
+  const { children = [], itemsToShow = 1, itemsToSlide = 1, dots = false, space = 10, itemsWidth = 100, mode = 'normal', arrows = true, customNextArrow = null, customPrevArrow = null } = props;
 
   const ref = useRef<HTMLInputElement>(null);
 
@@ -148,6 +151,29 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
 
   const aaa = (children.length / itemsToSlide) ;
 
+  const showPrevArrow = () => {
+    if(arrows && shouldNavigatePrevious) {
+      if(customPrevArrow) {
+        return React.cloneElement(customPrevArrow, { onClick: previous, left: true });
+      }
+      return (
+        <CarouselArrow onClick={previous} left><Arrow left/></CarouselArrow>
+      );
+    }
+    return null;
+  }
+
+  const showNextArrow = () => {
+    if(arrows && shouldNavigateNext()) {
+      if(customNextArrow) {
+        return React.cloneElement(customNextArrow, { onClick: next, right: true });
+      }
+      return (
+        <CarouselArrow onClick={next} right><Arrow right/></CarouselArrow>
+      );
+    }
+    return null;
+  }
 
   return (
     <CarouselContainer>
@@ -174,11 +200,10 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
               {item}
             </CarouselItem>
           ))}
-          {/* {variableWidth && children} */}
         </CarouselSlidesContainer>
       </CarouselStyled>
-      {shouldNavigatePrevious && (<CarouselArrow onClick={previous} left><Arrow left/></CarouselArrow>)}
-      {shouldNavigateNext() && <CarouselArrow onClick={next} right><Arrow right/></CarouselArrow>}
+      {showPrevArrow()}
+      {showNextArrow()}
       {dots && (
         <DotsList>
           {[...Array(aaa).keys()].map((_, id) => <Dot key={id} active={active === id * itemsToSlide} onClick={()=>setActive(id)}/>)}
