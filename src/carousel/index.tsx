@@ -59,13 +59,13 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const [saveTranslateSpace, setSaveTranslateSpace] = useState(0);
 
   const padding = mode === 'normal' ? space : 0;
-  const margin = mode === 'variableWidth' ? space : 0;
+  const margin = mode !== 'normal' ? space : 0;
 
   useEffect(() => {
-    if (mode === 'variableWidth') {
-      setWidthItem(itemsWidth);
-    } else if (mode === 'normal') {
+    if (mode === 'normal') {
       setWidthItem(containerWidth / itemsToShow);
+    } else {
+      setWidthItem(itemsWidth);
     }
   }, [widthItem, itemsWidth, itemsToShow, containerWidth, mode]);
 
@@ -89,9 +89,13 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     const itemsOverflowAtTheEnd =
       totalWidthOfItemsAndMargins - translateSpace - (widthItem + margin) > containerWidth;
     const shouldShowLastItemToTheEnd =
-      mode === 'variableWidth' && direction === 'next' && !itemsOverflowAtTheEnd;
+      mode !== 'normal' && direction === 'next' && !itemsOverflowAtTheEnd;
     if (shouldShowLastItemToTheEnd) {
       setTranslateSpace(children.length * (widthItem + margin) - margin - containerWidth);
+    } else if(mode === 'center' && active !== 0) {
+      const nbOfItems = Math.floor(containerWidth / (widthItem + margin));
+      const shiftToCenter = (( containerWidth - (nbOfItems * (widthItem + margin)))/2) + margin / 2;
+      setTranslateSpace(active * (widthItem + margin) - shiftToCenter);
     } else {
       setTranslateSpace(active * (widthItem + margin));
     }
@@ -216,7 +220,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
                 {item}
               </CarouselItem>
             ))}
-          {mode === 'variableWidth' &&
+          {(mode === 'variableWidth' || mode === 'center') &&
             children.map((item, id) => (
               <CarouselItem key={id} width={widthItem} margin={margin}>
                 {item}

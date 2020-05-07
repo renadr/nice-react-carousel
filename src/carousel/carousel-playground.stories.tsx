@@ -25,7 +25,7 @@ const optionsWidth = {
 
 const optionsMode = {
   normal: 'normal',
-  centerMode: 'center',
+  center: 'center',
   variableWidth: 'variableWidth',
 };
 

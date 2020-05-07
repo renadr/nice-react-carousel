@@ -117,7 +117,44 @@ export const CarouselListExample = (): ReactElement => (
       </ItemNews>
     </Carousel>
     <StoryBookDesc>
-      #2 : 'variableWidth' mode, width of 250px and space of 30px. That can show the next item every
+      #2 : 'center' mode, width of 250px and space of 30px. The previous and next items are partially displayed.
+    </StoryBookDesc>
+    <Carousel space={30} mode="center" itemsWidth={250}>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #4e54c8, #8f94fb)' }}>
+        <Title>Title 1</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #800080, #ffc0cb)' }}>
+        <Title>Title 2</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #8e2de2, #4a00e0)' }}>
+        <Title>Title 3</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #fc4a1a, #f7b733)' }}>
+        <Title>Title 4</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #4e54c8, #8f94fb)' }}>
+        <Title>Title 5</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #800080, #ffc0cb)' }}>
+        <Title>Title 6</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #8e2de2, #4a00e0)' }}>
+        <Title>Title 7</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+      <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #fc4a1a, #f7b733)' }}>
+        <Title>Title 8</Title>
+        <Desc>Lorem ipsum</Desc>
+      </ItemNews>
+    </Carousel>
+    <StoryBookDesc>
+      #3 : 'variableWidth' mode, width of 250px and space of 30px. That can show the next item every
       time.
     </StoryBookDesc>
     <Carousel space={30} mode="variableWidth" itemsWidth={250}>
