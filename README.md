@@ -11,6 +11,7 @@
   <img alt="NPM" src="https://img.shields.io/npm/l/nice-react-carousel">
   <br />
   <br />
+  <img src="http://adrienlemaire.fr/video2-nice-react-carousel.gif" />
 </div>
 
 ## Try it
