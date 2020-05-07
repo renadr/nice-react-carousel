@@ -10,7 +10,17 @@
     "slide",
     "react"
   ],
-  "main": "rollup.config.js",
+  "main": "build/index.js",
+  "module": "build/index.es.js",
+  "jsnext:main": "build/index.es.js",
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -cw",
+    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
+    "format": "prettier-standard --format",
+    "test": "jest --coverage",
+    "storybook": "start-storybook"
+  },
   "dependencies": {
     "@storybook/addon-knobs": "^5.3.18",
     "@storybook/addon-storysource": "^5.3.18",
@@ -72,13 +82,6 @@
     "react": "^16",
     "react-dom": "^16"
   },
-  "scripts": {
-    "build": "rollup -c",
-    "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix",
-    "format": "prettier-standard --format",
-    "test": "jest --coverage",
-    "storybook": "start-storybook"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/renadr/nice-react-carousel.git"
@@ -88,5 +91,8 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/renadr/nice-react-carousel/issues"
-  }
+  },
+  "files": [
+    "build"
+  ]
 }

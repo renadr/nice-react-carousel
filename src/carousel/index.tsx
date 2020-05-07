@@ -167,8 +167,6 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   });
   useEffect(() => move(), [active, dragged]);
 
-  const aaa = children.length / itemsToSlide;
-
   const showPrevArrow = (): ReactElement | null => {
     if (arrows && shouldNavigatePrevious) {
       if (customPrevArrow) {
@@ -230,7 +228,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
       {showNextArrow()}
       {dots && (
         <DotsList>
-          {[...Array(aaa).keys()].map((_, id) => (
+          {children.map((_, id) => (
             <Dot
               key={id}
               active={active === id * itemsToSlide}

@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { withKnobs, number, select, boolean } from '@storybook/addon-knobs';
 
-import { Card, Title, Desc, Btn, StoryBookTitle, StoryBookDesc, ItemNews } from '../styles';
+import { Title, Desc, StoryBookTitle, StoryBookDesc, ItemNews } from '../styles';
 import Carousel from './index';
 
 export default {
