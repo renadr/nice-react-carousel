@@ -15,7 +15,7 @@
 
 ## Overview
 
-![An overview](http://adrienlemaire.fr/video1-nice-react-carousel.gif "Logo Title Text 1")
+![An overview](http://adrienlemaire.fr/video2-nice-react-carousel.gif "Logo Title Text 1")
 
 
 ## Try it
