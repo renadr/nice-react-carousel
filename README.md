@@ -11,12 +11,8 @@
   <img alt="NPM" src="https://img.shields.io/npm/l/nice-react-carousel">
   <br />
   <br />
+  <img src="http://adrienlemaire.fr/video2-nice-react-carousel.gif" />
 </div>
-
-## Overview
-
-![An overview](http://adrienlemaire.fr/video2-nice-react-carousel.gif "Logo Title Text 1")
-
 
 ## Try it
 
