@@ -13,6 +13,11 @@
   <br />
 </div>
 
+## Overview
+
+![An overview](http://adrienlemaire.fr/video1-nice-react-carousel.gif "Logo Title Text 1")
+
+
 ## Try it
 
 https://nice-react-carousel.netlify.com
