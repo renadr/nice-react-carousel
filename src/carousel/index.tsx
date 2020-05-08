@@ -1,11 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  ReactNode,
-  FunctionComponent,
-  ReactElement,
-} from 'react';
+import React, { useState, useEffect, useRef, FunctionComponent, ReactElement } from 'react';
 import {
   CarouselStyled,
   CarouselContainer,
@@ -16,20 +9,7 @@ import {
   Dot,
   DotsList,
 } from './styles';
-
-export interface CarouselProps {
-  itemsToShow?: number;
-  itemsToSlide?: number;
-  itemsWidth?: number;
-  space?: number;
-  children: ReactNode[];
-  dots?: ReactNode | boolean;
-  mode?: string;
-  paddingContainer?: number;
-  arrows?: boolean;
-  customNextArrow?: ReactElement;
-  customPrevArrow?: ReactElement;
-}
+import { CurrentProps, ResponsiveCarousel, CarouselProps } from './interfaces';
 
 const Carousel: FunctionComponent<CarouselProps> = props => {
   const {
@@ -43,6 +23,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     arrows = true,
     customNextArrow = null,
     customPrevArrow = null,
+    responsive = [],
   } = props;
 
   const ref = useRef<HTMLInputElement>(null);
@@ -58,20 +39,76 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const [translateSpace, setTranslateSpace] = useState(widthItem * active);
   const [saveTranslateSpace, setSaveTranslateSpace] = useState(0);
 
-  const padding = mode === 'normal' ? space : 0;
-  const margin = mode !== 'normal' ? space : 0;
+  const [actual, setActual] = useState<CurrentProps>({
+    width: 0,
+    itemsToShow,
+    itemsToSlide,
+    dots,
+    space,
+    itemsWidth,
+    mode,
+    arrows,
+    customNextArrow,
+    customPrevArrow,
+  });
+
+  const padding = actual.mode === 'normal' ? actual.space : 0;
+  const margin = actual.mode !== 'normal' ? actual.space : 0;
+
+  const handleResize = () => {
+    const vw = window.innerWidth;
+    if (responsive && vw) {
+      let currentProps: CurrentProps = {
+        width: 0,
+        itemsToShow,
+        itemsToSlide,
+        dots,
+        space,
+        itemsWidth,
+        mode,
+        arrows,
+        customNextArrow,
+        customPrevArrow,
+      };
+      responsive.forEach((respProps: ResponsiveCarousel) => {
+        if (vw >= respProps.width) {
+          if (respProps.width > currentProps.width) {
+            currentProps = { ...currentProps, ...respProps };
+          }
+        }
+      });
+      console.log('hhhehe')
+      setActual(currentProps);
+    }
+  };
 
   useEffect(() => {
-    if (mode === 'normal') {
-      setWidthItem(containerWidth / itemsToShow);
+    handleResize();
+  }, [
+    itemsToShow,
+    itemsToSlide,
+    dots,
+    space,
+    itemsWidth,
+    mode,
+    arrows,
+    customNextArrow,
+    customPrevArrow,
+  ]);
+
+  useEffect(() => {
+    console.log('itemsWidth', itemsWidth, actual.mode);
+    if (actual.mode === 'normal') {
+      setWidthItem(containerWidth / actual.itemsToShow);
+      console.log('hey', containerWidth)
     } else {
-      setWidthItem(itemsWidth);
+      setWidthItem(actual.itemsWidth);
     }
-  }, [widthItem, itemsWidth, itemsToShow, containerWidth, mode]);
+  }, [widthItem, actual.itemsWidth, actual.itemsToShow, containerWidth, actual.mode]);
 
   useEffect(() => {
     setActive(0);
-  }, [mode, itemsWidth, space]);
+  }, [actual.mode, itemsWidth, actual.space]);
 
   const shouldNavigatePrevious = active > 0;
   const shouldNavigateNext = (): boolean => {
@@ -84,17 +121,19 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
 
   const resizeWidth = (): void => setContainerWidth(ref.current ? ref.current.offsetWidth : 0);
 
+  useEffect(() => resizeWidth(), [])
+
   const move = (): void => {
     const totalWidthOfItemsAndMargins = children.length * (widthItem + margin) - margin;
     const itemsOverflowAtTheEnd =
       totalWidthOfItemsAndMargins - translateSpace - (widthItem + margin) > containerWidth;
     const shouldShowLastItemToTheEnd =
-      mode !== 'normal' && direction === 'next' && !itemsOverflowAtTheEnd;
+      actual.mode !== 'normal' && direction === 'next' && !itemsOverflowAtTheEnd;
     if (shouldShowLastItemToTheEnd) {
       setTranslateSpace(children.length * (widthItem + margin) - margin - containerWidth);
-    } else if(mode === 'center' && active !== 0) {
+    } else if (actual.mode === 'center' && active !== 0) {
       const nbOfItems = Math.floor(containerWidth / (widthItem + margin));
-      const shiftToCenter = (( containerWidth - (nbOfItems * (widthItem + margin)))/2) + margin / 2;
+      const shiftToCenter = (containerWidth - nbOfItems * (widthItem + margin)) / 2 + margin / 2;
       setTranslateSpace(active * (widthItem + margin) - shiftToCenter);
     } else {
       setTranslateSpace(active * (widthItem + margin));
@@ -103,13 +142,13 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const previous = (): void => {
     if (shouldNavigatePrevious) {
       setDirection('previous');
-      setActive(active - itemsToSlide);
+      setActive(active - actual.itemsToSlide);
     }
   };
   const next = (): void => {
     if (shouldNavigateNext()) {
       setDirection('next');
-      setActive(active + itemsToSlide);
+      setActive(active + actual.itemsToSlide);
     }
   };
 
@@ -148,7 +187,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
       setDragged(false);
       let newActive = active + Math.round((leftDrag * -1) / widthItem);
       if (newActive < 0) newActive = 0;
-      if (newActive > children.length - itemsToShow) newActive = active;
+      if (newActive > children.length - actual.itemsToShow) newActive = active;
       setActive(newActive);
     }
   };
@@ -162,19 +201,25 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     window.removeEventListener('touchmove', onTouchMove);
     onDragEnd();
   };
-  useEffect(resizeWidth, [ref.current]);
+
   useEffect(() => {
     window.addEventListener('resize', resizeWidth);
     return (): void => {
       window.removeEventListener('resize', resizeWidth);
     };
-  });
-  useEffect(() => move(), [active, dragged]);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => move(), [active]);
 
   const showPrevArrow = (): ReactElement | null => {
-    if (arrows && shouldNavigatePrevious) {
-      if (customPrevArrow) {
-        return React.cloneElement(customPrevArrow, { onClick: previous, left: true });
+    if (actual.arrows && shouldNavigatePrevious) {
+      if (actual.customPrevArrow) {
+        return React.cloneElement(actual.customPrevArrow, { onClick: previous, left: true });
       }
       return (
         <CarouselArrow onClick={previous} left>
@@ -186,9 +231,9 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   };
 
   const showNextArrow = (): ReactElement | null => {
-    if (arrows && shouldNavigateNext()) {
-      if (customNextArrow) {
-        return React.cloneElement(customNextArrow, { onClick: next, right: true });
+    if (actual.arrows && shouldNavigateNext()) {
+      if (actual.customNextArrow) {
+        return React.cloneElement(actual.customNextArrow, { onClick: next, right: true });
       }
       return (
         <CarouselArrow onClick={next} right>
@@ -198,6 +243,8 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     }
     return null;
   };
+
+  // console.count();
 
   return (
     <CarouselContainer>
@@ -214,13 +261,13 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
           style={{ transform: `translateX(${translateSpace * -1}px)` }}
           dragged={dragged}
         >
-          {mode === 'normal' &&
+          {actual.mode === 'normal' &&
             children.map((item, id) => (
               <CarouselItem key={id} width={widthItem} padding={padding}>
                 {item}
               </CarouselItem>
             ))}
-          {(mode === 'variableWidth' || mode === 'center') &&
+          {(actual.mode === 'variableWidth' || actual.mode === 'center') &&
             children.map((item, id) => (
               <CarouselItem key={id} width={widthItem} margin={margin}>
                 {item}
@@ -230,12 +277,13 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
       </CarouselStyled>
       {showPrevArrow()}
       {showNextArrow()}
-      {dots && (
+      {widthItem}
+      {actual.dots && (
         <DotsList>
           {children.map((_, id) => (
             <Dot
               key={id}
-              active={active === id * itemsToSlide}
+              active={active === id * actual.itemsToSlide}
               onClick={(): void => setActive(id)}
             />
           ))}

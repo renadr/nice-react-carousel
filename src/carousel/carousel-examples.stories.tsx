@@ -82,7 +82,7 @@ export const CarouselListExample = (): ReactElement => (
     <StoryBookDesc>
       #1 : 'normal' mode, 4 items displayed in the same time and 30px of space between items.
     </StoryBookDesc>
-    <Carousel itemsToShow={4} space={30}>
+    <Carousel itemsToShow={1} space={30} responsive={[{width: 700, itemsToShow: 4}, {width: 400, itemsToShow: 2}]}>
       <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #4e54c8, #8f94fb)' }}>
         <Title>Title 1</Title>
         <Desc>Lorem ipsum</Desc>

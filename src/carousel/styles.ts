@@ -31,7 +31,7 @@ export const CarouselSlidesContainer = styled.div<{ dragged: boolean }>`
   ${props =>
     !props.dragged &&
     `
-    transition: all ease 0.6s;
+    transition: transform ease 0.6s;
   `}
 `;
 
