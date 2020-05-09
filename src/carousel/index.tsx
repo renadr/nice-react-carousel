@@ -51,7 +51,6 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     customNextArrow,
     customPrevArrow,
   });
-
   const padding = actual.mode === 'normal' ? actual.space : 0;
   const margin = actual.mode !== 'normal' ? actual.space : 0;
 
@@ -77,7 +76,6 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
           }
         }
       });
-      console.log('hhhehe')
       setActual(currentProps);
     }
   };
@@ -97,10 +95,8 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   ]);
 
   useEffect(() => {
-    console.log('itemsWidth', itemsWidth, actual.mode);
     if (actual.mode === 'normal') {
       setWidthItem(containerWidth / actual.itemsToShow);
-      console.log('hey', containerWidth)
     } else {
       setWidthItem(actual.itemsWidth);
     }
@@ -185,7 +181,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const onDragEnd = (): void => {
     if (dragged) {
       setDragged(false);
-      let newActive = active + Math.round((leftDrag * -1) / widthItem);
+      let newActive = active + Math.round((leftDrag * -1) / widthItem * 2);
       if (newActive < 0) newActive = 0;
       if (newActive > children.length - actual.itemsToShow) newActive = active;
       setActive(newActive);
@@ -214,7 +210,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => move(), [active]);
+  useEffect(() => move(), [active, dragged]);
 
   const showPrevArrow = (): ReactElement | null => {
     if (actual.arrows && shouldNavigatePrevious) {
@@ -243,8 +239,6 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     }
     return null;
   };
-
-  // console.count();
 
   return (
     <CarouselContainer>
@@ -277,7 +271,6 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
       </CarouselStyled>
       {showPrevArrow()}
       {showNextArrow()}
-      {widthItem}
       {actual.dots && (
         <DotsList>
           {children.map((_, id) => (
