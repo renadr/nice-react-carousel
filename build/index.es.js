@@ -63,19 +63,20 @@ var DotsList = styled.div(templateObject_8 || (templateObject_8 = __makeTemplate
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8;
 
 var Carousel = function (props) {
-    var _a = props.children, children = _a === void 0 ? [] : _a, _b = props.itemsToShow, itemsToShow = _b === void 0 ? 1 : _b, _c = props.itemsToSlide, itemsToSlide = _c === void 0 ? 1 : _c, _d = props.dots, dots = _d === void 0 ? false : _d, _e = props.space, space = _e === void 0 ? 10 : _e, _f = props.itemsWidth, itemsWidth = _f === void 0 ? 100 : _f, _g = props.mode, mode = _g === void 0 ? 'normal' : _g, _h = props.arrows, arrows = _h === void 0 ? true : _h, _j = props.customNextArrow, customNextArrow = _j === void 0 ? null : _j, _k = props.customPrevArrow, customPrevArrow = _k === void 0 ? null : _k, _l = props.responsive, responsive = _l === void 0 ? [] : _l;
+    var _a = props.itemsToShow, itemsToShow = _a === void 0 ? 1 : _a, _b = props.itemsToSlide, itemsToSlide = _b === void 0 ? 1 : _b, _c = props.dots, dots = _c === void 0 ? false : _c, _d = props.space, space = _d === void 0 ? 10 : _d, _e = props.itemsWidth, itemsWidth = _e === void 0 ? 100 : _e, _f = props.mode, mode = _f === void 0 ? 'normal' : _f, _g = props.arrows, arrows = _g === void 0 ? true : _g, _h = props.customNextArrow, customNextArrow = _h === void 0 ? null : _h, _j = props.customPrevArrow, customPrevArrow = _j === void 0 ? null : _j, _k = props.responsive, responsive = _k === void 0 ? [] : _k;
+    var children = React.Children.toArray(props.children);
     var ref = useRef(null);
-    var _m = useState(0), containerWidth = _m[0], setContainerWidth = _m[1];
-    var _o = useState(0), active = _o[0], setActive = _o[1];
-    var _p = useState(0), dragStartX = _p[0], setDragStartX = _p[1];
-    var _q = useState(false), dragged = _q[0], setDragged = _q[1];
-    var _r = useState(0), leftDrag = _r[0], setLeftDrag = _r[1];
-    var _s = useState(0), widthItem = _s[0], setWidthItem = _s[1];
-    var _t = useState(''), direction = _t[0], setDirection = _t[1];
-    var _u = useState(widthItem * active), translateSpace = _u[0], setTranslateSpace = _u[1];
-    var _v = useState(0), saveTranslateSpace = _v[0], setSaveTranslateSpace = _v[1];
-    var _w = useState(0), slidesListWidth = _w[0], setSlidesListWidth = _w[1];
-    var _x = useState({
+    var _l = useState(0), containerWidth = _l[0], setContainerWidth = _l[1];
+    var _m = useState(0), active = _m[0], setActive = _m[1];
+    var _o = useState(0), dragStartX = _o[0], setDragStartX = _o[1];
+    var _p = useState(false), dragged = _p[0], setDragged = _p[1];
+    var _q = useState(0), leftDrag = _q[0], setLeftDrag = _q[1];
+    var _r = useState(0), widthItem = _r[0], setWidthItem = _r[1];
+    var _s = useState(''), direction = _s[0], setDirection = _s[1];
+    var _t = useState(widthItem * active), translateSpace = _t[0], setTranslateSpace = _t[1];
+    var _u = useState(0), saveTranslateSpace = _u[0], setSaveTranslateSpace = _u[1];
+    var _v = useState(0), slidesListWidth = _v[0], setSlidesListWidth = _v[1];
+    var _w = useState({
         breakpoint: 0,
         itemsToShow: itemsToShow,
         itemsToSlide: itemsToSlide,
@@ -86,7 +87,7 @@ var Carousel = function (props) {
         arrows: arrows,
         customNextArrow: customNextArrow,
         customPrevArrow: customPrevArrow,
-    }), actual = _x[0], setActual = _x[1];
+    }), actual = _w[0], setActual = _w[1];
     var padding = actual.mode === 'normal' ? actual.space : 0;
     var margin = actual.mode !== 'normal' ? actual.space : 0;
     var handleResize = function () {
@@ -248,7 +249,7 @@ var Carousel = function (props) {
             React.createElement(CarouselSlidesContainer, { style: { transform: "translateX(" + translateSpace * -1 + "px)" }, dragged: dragged },
                 actual.mode === 'normal' &&
                     children.map(function (item, id) { return (React.createElement(CarouselItem, { key: id, width: widthItem, padding: padding }, item)); }),
-                (actual.mode !== 'normal') &&
+                actual.mode !== 'normal' &&
                     children.map(function (item, id) { return (React.createElement(CarouselItem, { key: id, width: widthItem, margin: margin }, item)); }))),
         showArrow(shouldNavigatePrevious(), actual.customPrevArrow, previous, { left: true }),
         showArrow(shouldNavigateNext(), actual.customNextArrow, next, { right: true }),

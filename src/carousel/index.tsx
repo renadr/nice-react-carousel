@@ -13,7 +13,6 @@ import { CurrentProps, ResponsiveCarousel, CarouselProps } from './interfaces';
 
 const Carousel: FunctionComponent<CarouselProps> = props => {
   const {
-    children = [],
     itemsToShow = 1,
     itemsToSlide = 1,
     dots = false,
@@ -25,6 +24,8 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     customPrevArrow = null,
     responsive = [],
   } = props;
+
+  const children = React.Children.toArray(props.children);
 
   const ref = useRef<HTMLInputElement>(null);
 
@@ -120,9 +121,6 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const resizeWidth = (): void => setContainerWidth(ref.current ? ref.current.offsetWidth : 0);
 
   useEffect(() => resizeWidth(), []);
-
-
-
 
   const move = (): void => {
     const itemsOverflowAtTheEnd =
@@ -258,7 +256,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
                 {item}
               </CarouselItem>
             ))}
-          {(actual.mode !== 'normal') &&
+          {actual.mode !== 'normal' &&
             children.map((item, id) => (
               <CarouselItem key={id} width={widthItem} margin={margin}>
                 {item}
