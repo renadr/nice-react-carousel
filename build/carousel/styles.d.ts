@@ -21,6 +21,7 @@ export declare const Arrow: import("styled-components").StyledComponent<"span", 
     right?: boolean | undefined;
 }, never>;
 export declare const CarouselArrow: import("styled-components").StyledComponent<"button", any, {
+    onClick?: any;
     left?: boolean | undefined;
     right?: boolean | undefined;
 }, never>;

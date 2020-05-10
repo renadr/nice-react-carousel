@@ -90,7 +90,7 @@ export const Arrow = styled.span<{ left?: boolean; right?: boolean }>`
   }
 `;
 
-export const CarouselArrow = styled.button<{ left?: boolean; right?: boolean }>`
+export const CarouselArrow = styled.button<{ onClick?: any, left?: boolean; right?: boolean }>`
   height: 50px;
   width: 50px;
   background-color: #ffffff;

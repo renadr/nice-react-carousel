@@ -23,6 +23,17 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
 function __makeTemplateObject(cooked, raw) {
     if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
     return cooked;
@@ -32,7 +43,7 @@ var CarouselStyled = styled.div(templateObject_1 || (templateObject_1 = __makeTe
 var CarouselSlidesContainer = styled.div(templateObject_2 || (templateObject_2 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: row;\n  ", "\n"], ["\n  display: flex;\n  flex-direction: row;\n  ",
     "\n"])), function (props) {
     return !props.dragged &&
-        "\n    transition: all ease 0.6s;\n  ";
+        "\n    transition: transform ease 0.6s;\n  ";
 });
 var CarouselItem = styled.div(templateObject_3 || (templateObject_3 = __makeTemplateObject(["\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: ", ";\n  border-radius: 30px;\n  padding: 10px 0;\n  margin-right: ", "px;\n  padding: 0 ", "px;\n  box-sizing: border-box;\n  & > * {\n    width: 100%;\n  }\n"], ["\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  align-items: center;\n  width: ", ";\n  border-radius: 30px;\n  padding: 10px 0;\n  margin-right: ", "px;\n  padding: 0 ", "px;\n  box-sizing: border-box;\n  & > * {\n    width: 100%;\n  }\n"])), function (props) { return (props.width ? props.width + 'px' : 'auto'); }, function (props) { return (props.margin ? props.margin : 0); }, function (props) { return (props.padding ? props.padding / 2 : 0); });
 var CarouselContainer = styled.div(templateObject_4 || (templateObject_4 = __makeTemplateObject(["\n  position: relative;\n"], ["\n  position: relative;\n"])));
@@ -59,60 +70,115 @@ var DotsList = styled.div(templateObject_8 || (templateObject_8 = __makeTemplate
 var templateObject_1, templateObject_2, templateObject_3, templateObject_4, templateObject_5, templateObject_6, templateObject_7, templateObject_8;
 
 var Carousel = function (props) {
-    var _a = props.children, children = _a === void 0 ? [] : _a, _b = props.itemsToShow, itemsToShow = _b === void 0 ? 1 : _b, _c = props.itemsToSlide, itemsToSlide = _c === void 0 ? 1 : _c, _d = props.dots, dots = _d === void 0 ? false : _d, _e = props.space, space = _e === void 0 ? 10 : _e, _f = props.itemsWidth, itemsWidth = _f === void 0 ? 100 : _f, _g = props.mode, mode = _g === void 0 ? 'normal' : _g, _h = props.arrows, arrows = _h === void 0 ? true : _h, _j = props.customNextArrow, customNextArrow = _j === void 0 ? null : _j, _k = props.customPrevArrow, customPrevArrow = _k === void 0 ? null : _k;
+    var _a = props.children, children = _a === void 0 ? [] : _a, _b = props.itemsToShow, itemsToShow = _b === void 0 ? 1 : _b, _c = props.itemsToSlide, itemsToSlide = _c === void 0 ? 1 : _c, _d = props.dots, dots = _d === void 0 ? false : _d, _e = props.space, space = _e === void 0 ? 10 : _e, _f = props.itemsWidth, itemsWidth = _f === void 0 ? 100 : _f, _g = props.mode, mode = _g === void 0 ? 'normal' : _g, _h = props.arrows, arrows = _h === void 0 ? true : _h, _j = props.customNextArrow, customNextArrow = _j === void 0 ? null : _j, _k = props.customPrevArrow, customPrevArrow = _k === void 0 ? null : _k, _l = props.responsive, responsive = _l === void 0 ? [] : _l;
     var ref = React.useRef(null);
-    var _l = React.useState(0), containerWidth = _l[0], setContainerWidth = _l[1];
-    var _m = React.useState(0), active = _m[0], setActive = _m[1];
-    var _o = React.useState(0), dragStartX = _o[0], setDragStartX = _o[1];
-    var _p = React.useState(false), dragged = _p[0], setDragged = _p[1];
-    var _q = React.useState(0), leftDrag = _q[0], setLeftDrag = _q[1];
-    var _r = React.useState(0), widthItem = _r[0], setWidthItem = _r[1];
-    var _s = React.useState(''), direction = _s[0], setDirection = _s[1];
-    var _t = React.useState(widthItem * active), translateSpace = _t[0], setTranslateSpace = _t[1];
-    var _u = React.useState(0), saveTranslateSpace = _u[0], setSaveTranslateSpace = _u[1];
-    var padding = mode === 'normal' ? space : 0;
-    var margin = mode === 'variableWidth' ? space : 0;
+    var _m = React.useState(0), containerWidth = _m[0], setContainerWidth = _m[1];
+    var _o = React.useState(0), active = _o[0], setActive = _o[1];
+    var _p = React.useState(0), dragStartX = _p[0], setDragStartX = _p[1];
+    var _q = React.useState(false), dragged = _q[0], setDragged = _q[1];
+    var _r = React.useState(0), leftDrag = _r[0], setLeftDrag = _r[1];
+    var _s = React.useState(0), widthItem = _s[0], setWidthItem = _s[1];
+    var _t = React.useState(''), direction = _t[0], setDirection = _t[1];
+    var _u = React.useState(widthItem * active), translateSpace = _u[0], setTranslateSpace = _u[1];
+    var _v = React.useState(0), saveTranslateSpace = _v[0], setSaveTranslateSpace = _v[1];
+    var _w = React.useState(0), slidesListWidth = _w[0], setSlidesListWidth = _w[1];
+    var _x = React.useState({
+        width: 0,
+        itemsToShow: itemsToShow,
+        itemsToSlide: itemsToSlide,
+        dots: dots,
+        space: space,
+        itemsWidth: itemsWidth,
+        mode: mode,
+        arrows: arrows,
+        customNextArrow: customNextArrow,
+        customPrevArrow: customPrevArrow,
+    }), actual = _x[0], setActual = _x[1];
+    var padding = actual.mode === 'normal' ? actual.space : 0;
+    var margin = actual.mode !== 'normal' ? actual.space : 0;
+    var handleResize = function () {
+        var vw = window.innerWidth;
+        if (responsive && vw) {
+            var currentProps_1 = {
+                width: 0,
+                itemsToShow: itemsToShow,
+                itemsToSlide: itemsToSlide,
+                dots: dots,
+                space: space,
+                itemsWidth: itemsWidth,
+                mode: mode,
+                arrows: arrows,
+                customNextArrow: customNextArrow,
+                customPrevArrow: customPrevArrow,
+            };
+            responsive.forEach(function (respProps) {
+                if (vw >= respProps.width) {
+                    if (respProps.width > currentProps_1.width) {
+                        currentProps_1 = __assign(__assign({}, currentProps_1), respProps);
+                    }
+                }
+            });
+            setActual(currentProps_1);
+        }
+    };
     React.useEffect(function () {
-        if (mode === 'variableWidth') {
-            setWidthItem(itemsWidth);
-        }
-        else if (mode === 'normal') {
-            setWidthItem(containerWidth / itemsToShow);
-        }
-    }, [widthItem, itemsWidth, itemsToShow, containerWidth, mode]);
+        handleResize();
+    }, [
+        itemsToShow,
+        itemsToSlide,
+        dots,
+        space,
+        itemsWidth,
+        mode,
+        arrows,
+        customNextArrow,
+        customPrevArrow,
+    ]);
+    var calculateItemWidth = function (shouldCalculateWidth) {
+        return shouldCalculateWidth ? containerWidth / actual.itemsToShow : actual.itemsWidth;
+    };
+    React.useEffect(function () {
+        setWidthItem(calculateItemWidth(actual.mode === 'normal'));
+    }, [widthItem, actual.itemsWidth, actual.itemsToShow, containerWidth, actual.mode]);
     React.useEffect(function () {
         setActive(0);
-    }, [mode, itemsWidth, space]);
-    var shouldNavigatePrevious = active > 0;
+    }, [actual.mode, itemsWidth, actual.space]);
+    React.useEffect(function () {
+        setSlidesListWidth(children.length * (widthItem + margin) - margin);
+    }, [widthItem, margin]);
+    var shouldNavigatePrevious = function () { return active > 0; };
     var shouldNavigateNext = function () {
-        var totalWidthOfItemsAndMargins = children.length * (widthItem + margin) - margin - translateSpace;
-        var lastItemIsFullyVisible = totalWidthOfItemsAndMargins > containerWidth;
-        if (lastItemIsFullyVisible)
-            return true;
-        return false;
+        var endOfItemsPosition = slidesListWidth - translateSpace;
+        var lastItemIsFullyVisible = endOfItemsPosition > containerWidth;
+        return lastItemIsFullyVisible;
     };
     var resizeWidth = function () { return setContainerWidth(ref.current ? ref.current.offsetWidth : 0); };
+    React.useEffect(function () { return resizeWidth(); }, []);
     var move = function () {
-        var totalWidthOfItemsAndMargins = children.length * (widthItem + margin) - margin;
-        var itemsOverflowAtTheEnd = totalWidthOfItemsAndMargins - translateSpace - (widthItem + margin) > containerWidth;
-        var shouldShowLastItemToTheEnd = mode === 'variableWidth' && direction === 'next' && !itemsOverflowAtTheEnd;
+        var itemsOverflowAtTheEnd = slidesListWidth - translateSpace - (widthItem + margin) > containerWidth;
+        var shouldShowLastItemToTheEnd = actual.mode !== 'normal' && direction === 'next' && !itemsOverflowAtTheEnd;
         if (shouldShowLastItemToTheEnd) {
             setTranslateSpace(children.length * (widthItem + margin) - margin - containerWidth);
+        }
+        else if (actual.mode === 'center' && active !== 0) {
+            var nbOfItems = Math.floor(containerWidth / (widthItem + margin));
+            var shiftToCenter = (containerWidth - nbOfItems * (widthItem + margin)) / 2 + margin / 2;
+            setTranslateSpace(active * (widthItem + margin) - shiftToCenter);
         }
         else {
             setTranslateSpace(active * (widthItem + margin));
         }
     };
     var previous = function () {
-        if (shouldNavigatePrevious) {
+        if (shouldNavigatePrevious()) {
             setDirection('previous');
-            setActive(active - itemsToSlide);
+            setActive(active - actual.itemsToSlide);
         }
     };
     var next = function () {
         if (shouldNavigateNext()) {
             setDirection('next');
-            setActive(active + itemsToSlide);
+            setActive(active + actual.itemsToSlide);
         }
     };
     var onMouseMove = function (event) {
@@ -143,15 +209,18 @@ var Carousel = function (props) {
         setSaveTranslateSpace(translateSpace);
         onDragStart(event.clientX);
     };
+    var getNewActiveFromDrag = function (active, leftDrag, widthItem) {
+        var newActive = active + Math.round((leftDrag * -1) / widthItem);
+        if (newActive < 0)
+            return 0;
+        else if (newActive > children.length - actual.itemsToShow)
+            return active;
+        return newActive;
+    };
     var onDragEnd = function () {
         if (dragged) {
             setDragged(false);
-            var newActive = active + Math.round((leftDrag * -1) / widthItem);
-            if (newActive < 0)
-                newActive = 0;
-            if (newActive > children.length - itemsToShow)
-                newActive = active;
-            setActive(newActive);
+            setActive(getNewActiveFromDrag(active, leftDrag, widthItem));
         }
     };
     var onDragEndMouse = function () {
@@ -162,45 +231,36 @@ var Carousel = function (props) {
         window.removeEventListener('touchmove', onTouchMove);
         onDragEnd();
     };
-    React.useEffect(resizeWidth, [ref.current]);
     React.useEffect(function () {
         window.addEventListener('resize', resizeWidth);
         return function () {
             window.removeEventListener('resize', resizeWidth);
         };
-    });
+    }, []);
+    React.useEffect(function () {
+        window.addEventListener('resize', handleResize);
+        return function () { return window.removeEventListener('resize', handleResize); };
+    }, []);
     React.useEffect(function () { return move(); }, [active, dragged]);
-    var showPrevArrow = function () {
-        if (arrows && shouldNavigatePrevious) {
-            if (customPrevArrow) {
-                return React__default.cloneElement(customPrevArrow, { onClick: previous, left: true });
-            }
-            return (React__default.createElement(CarouselArrow, { onClick: previous, left: true },
-                React__default.createElement(Arrow, { left: true })));
-        }
-        return null;
-    };
-    var showNextArrow = function () {
-        if (arrows && shouldNavigateNext()) {
-            if (customNextArrow) {
-                return React__default.cloneElement(customNextArrow, { onClick: next, right: true });
-            }
-            return (React__default.createElement(CarouselArrow, { onClick: next, right: true },
-                React__default.createElement(Arrow, { right: true })));
+    var showArrow = function (shouldDisplay, customArrow, onClick, propsArrow) {
+        if (actual.arrows && shouldDisplay) {
+            customArrow && React__default.cloneElement(customArrow, __assign({ onClick: onClick }, propsArrow));
+            return (React__default.createElement(CarouselArrow, __assign({ onClick: onClick }, propsArrow),
+                React__default.createElement(Arrow, __assign({}, propsArrow))));
         }
         return null;
     };
     return (React__default.createElement(CarouselContainer, null,
         React__default.createElement(CarouselStyled, { ref: ref, onMouseDown: onDragStartMouse, onMouseMove: onMouseMove, onMouseUp: onDragEndMouse, onTouchStart: onDragStartTouch, onTouchMove: onTouchMove, onTouchEnd: onDragEndTouch },
             React__default.createElement(CarouselSlidesContainer, { style: { transform: "translateX(" + translateSpace * -1 + "px)" }, dragged: dragged },
-                mode === 'normal' &&
+                actual.mode === 'normal' &&
                     children.map(function (item, id) { return (React__default.createElement(CarouselItem, { key: id, width: widthItem, padding: padding }, item)); }),
-                mode === 'variableWidth' &&
+                (actual.mode !== 'normal') &&
                     children.map(function (item, id) { return (React__default.createElement(CarouselItem, { key: id, width: widthItem, margin: margin }, item)); }))),
-        showPrevArrow(),
-        showNextArrow(),
-        dots && (React__default.createElement(DotsList, null, children.map(function (_, id) { return (React__default.createElement(Dot, { key: id, active: active === id * itemsToSlide, onClick: function () { return setActive(id); } })); })))));
+        showArrow(shouldNavigatePrevious(), actual.customPrevArrow, previous, { left: true }),
+        showArrow(shouldNavigateNext(), actual.customNextArrow, next, { right: true }),
+        actual.dots && (React__default.createElement(DotsList, null, children.map(function (_, id) { return (React__default.createElement(Dot, { key: id, active: active === id * actual.itemsToSlide, onClick: function () { return setActive(id); } })); })))));
 };
 
-exports.Carousel = Carousel;
+exports.default = Carousel;
 //# sourceMappingURL=index.js.map
