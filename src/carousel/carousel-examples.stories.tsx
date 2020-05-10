@@ -16,6 +16,9 @@ export const CarouselNewsExample = (): ReactElement => (
       customNextArrow={<StyledArrow next />}
       itemsToShow={1}
       space={0}
+      dots={(isActive: boolean) => {
+        return <p>[{isActive ? 'x': ''}]</p>;
+      }}
     >
       <ItemNews
         style={{

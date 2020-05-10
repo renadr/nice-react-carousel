@@ -251,6 +251,10 @@ var Carousel = function (props) {
         }
         return null;
     };
+    var getActivableChildren = function () {
+        var nbOfItems = Math.floor(containerWidth / (widthItem + margin));
+        return children.slice(0, children.length - nbOfItems + 1);
+    };
     return (React__default.createElement(CarouselContainer, null,
         React__default.createElement(CarouselStyled, { ref: ref, onMouseDown: onDragStartMouse, onMouseMove: onMouseMove, onMouseUp: onDragEndMouse, onTouchStart: onDragStartTouch, onTouchMove: onTouchMove, onTouchEnd: onDragEndTouch },
             React__default.createElement(CarouselSlidesContainer, { style: { transform: "translateX(" + translateSpace * -1 + "px)" }, dragged: dragged },
@@ -260,7 +264,12 @@ var Carousel = function (props) {
                     children.map(function (item, id) { return (React__default.createElement(CarouselItem, { key: id, width: widthItem, margin: margin }, item)); }))),
         showArrow(shouldNavigatePrevious(), actual.customPrevArrow, previous, { left: true }),
         showArrow(shouldNavigateNext(), actual.customNextArrow, next, { right: true }),
-        actual.dots && (React__default.createElement(DotsList, null, children.map(function (_, id) { return (React__default.createElement(Dot, { key: id, active: active === id * actual.itemsToSlide, onClick: function () { return setActive(id); } })); })))));
+        actual.dots && (React__default.createElement(DotsList, null, getActivableChildren().map(function (_, id) {
+            if (typeof dots === 'function') {
+                return React__default.cloneElement(dots(active === id), { key: id });
+            }
+            return (React__default.createElement(Dot, { key: id, active: active === id * actual.itemsToSlide, onClick: function () { return setActive(id); } }));
+        })))));
 };
 
 exports.default = Carousel;

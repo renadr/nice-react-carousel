@@ -6,7 +6,7 @@ export interface CurrentProps {
   itemsToSlide: number;
   itemsWidth: number;
   space: number;
-  dots: ReactNode | boolean;
+  dots: Function | boolean;
   mode: string;
   arrows: boolean;
   customNextArrow: ReactElement | null;
@@ -18,7 +18,7 @@ export interface ResponsiveCarousel {
   itemsToSlide?: number;
   itemsWidth?: number;
   space?: number;
-  dots?: ReactNode | boolean;
+  dots?: Function | boolean;
   mode?: string;
   arrows?: boolean;
   customNextArrow?: ReactElement | null;
@@ -30,7 +30,7 @@ export interface CarouselProps {
   itemsWidth?: number;
   space?: number;
   children: ReactNode[];
-  dots?: ReactNode | boolean;
+  dots?: Function | boolean;
   mode?: string;
   arrows?: boolean;
   customNextArrow?: ReactElement | null;

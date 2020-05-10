@@ -235,6 +235,11 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     return null;
   };
 
+  const getActivableChildren = () => {
+    const nbOfItems = Math.floor(containerWidth / (widthItem + margin));
+    return children.slice(0, children.length - nbOfItems + 1);
+  };
+
   return (
     <CarouselContainer>
       <CarouselStyled
@@ -268,13 +273,19 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
       {showArrow(shouldNavigateNext(), actual.customNextArrow, next, { right: true })}
       {actual.dots && (
         <DotsList>
-          {children.map((_, id) => (
-            <Dot
-              key={id}
-              active={active === id * actual.itemsToSlide}
-              onClick={(): void => setActive(id)}
-            />
-          ))}
+          {
+            getActivableChildren().map((_, id) => {
+              if (typeof dots === 'function') {
+                return React.cloneElement(dots(active === id), { key: id });
+              }
+              return (
+                <Dot
+                  key={id}
+                  active={active === id * actual.itemsToSlide}
+                  onClick={(): void => setActive(id)}
+                />
+              );
+            })}
         </DotsList>
       )}
     </CarouselContainer>

@@ -45,6 +45,7 @@ export const CarouselPlayground = (): ReactElement => (
       space={number('space', 10, optionsSpace)}
       itemsWidth={number('itemsWidth (mode: variableWidth)', 200, optionsWidth)}
       arrows={boolean('arrows', true)}
+      dots={boolean('dots', true)}
     >
       <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #4e54c8, #8f94fb)' }}>
         <Title>Title 1</Title>
