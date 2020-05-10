@@ -76,7 +76,7 @@ var Carousel = function (props) {
     var _v = useState(0), saveTranslateSpace = _v[0], setSaveTranslateSpace = _v[1];
     var _w = useState(0), slidesListWidth = _w[0], setSlidesListWidth = _w[1];
     var _x = useState({
-        width: 0,
+        breakpoint: 0,
         itemsToShow: itemsToShow,
         itemsToSlide: itemsToSlide,
         dots: dots,
@@ -93,7 +93,7 @@ var Carousel = function (props) {
         var vw = window.innerWidth;
         if (responsive && vw) {
             var currentProps_1 = {
-                width: 0,
+                breakpoint: 0,
                 itemsToShow: itemsToShow,
                 itemsToSlide: itemsToSlide,
                 dots: dots,
@@ -105,8 +105,8 @@ var Carousel = function (props) {
                 customPrevArrow: customPrevArrow,
             };
             responsive.forEach(function (respProps) {
-                if (vw >= respProps.width) {
-                    if (respProps.width > currentProps_1.width) {
+                if (vw >= respProps.breakpoint) {
+                    if (respProps.breakpoint > currentProps_1.breakpoint) {
                         currentProps_1 = __assign(__assign({}, currentProps_1), respProps);
                     }
                 }

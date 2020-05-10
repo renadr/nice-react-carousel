@@ -1,6 +1,6 @@
 import { ReactNode, ReactElement } from 'react';
 export interface CurrentProps {
-    width: number;
+    breakpoint: number;
     itemsToShow: number;
     itemsToSlide: number;
     itemsWidth: number;
@@ -12,7 +12,7 @@ export interface CurrentProps {
     customPrevArrow: ReactElement | null;
 }
 export interface ResponsiveCarousel {
-    width: number;
+    breakpoint: number;
     itemsToShow?: number;
     itemsToSlide?: number;
     itemsWidth?: number;
