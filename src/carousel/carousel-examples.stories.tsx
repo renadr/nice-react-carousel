@@ -80,9 +80,17 @@ export const CarouselListExample = (): ReactElement => (
   <>
     <StoryBookTitle>Exemple : Carousel for lists</StoryBookTitle>
     <StoryBookDesc>
-      #1 : 'normal' mode, 4 items displayed in the same time and 30px of space between items.
+      #1 : 'normal' mode, 4 items displayed in the same time (1 item for small screen, 2 items for
+      medium screen) and 30px of space between items.
     </StoryBookDesc>
-    <Carousel itemsToShow={1} space={30} responsive={[{width: 700, itemsToShow: 4}, {width: 400, itemsToShow: 2}]}>
+    <Carousel
+      itemsToShow={1}
+      space={30}
+      responsive={[
+        { breakpoint: 700, itemsToShow: 4 },
+        { breakpoint: 400, itemsToShow: 2 },
+      ]}
+    >
       <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #4e54c8, #8f94fb)' }}>
         <Title>Title 1</Title>
         <Desc>Lorem ipsum</Desc>
@@ -117,7 +125,8 @@ export const CarouselListExample = (): ReactElement => (
       </ItemNews>
     </Carousel>
     <StoryBookDesc>
-      #2 : 'center' mode, width of 250px and space of 30px. The previous and next items are partially displayed.
+      #2 : 'center' mode, width of 250px and space of 30px. The previous and next items are
+      partially displayed.
     </StoryBookDesc>
     <Carousel space={30} mode="center" itemsWidth={250}>
       <ItemNews rounded style={{ backgroundImage: 'linear-gradient(to right, #4e54c8, #8f94fb)' }}>
