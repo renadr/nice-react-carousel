@@ -41,7 +41,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
   const [slidesListWidth, setSlidesListWidth] = useState(0);
 
   const [actual, setActual] = useState<CurrentProps>({
-    width: 0,
+    breakpoint: 0,
     itemsToShow,
     itemsToSlide,
     dots,
@@ -59,7 +59,7 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
     const vw = window.innerWidth;
     if (responsive && vw) {
       let currentProps: CurrentProps = {
-        width: 0,
+        breakpoint: 0,
         itemsToShow,
         itemsToSlide,
         dots,
@@ -71,8 +71,8 @@ const Carousel: FunctionComponent<CarouselProps> = props => {
         customPrevArrow,
       };
       responsive.forEach((respProps: ResponsiveCarousel) => {
-        if (vw >= respProps.width) {
-          if (respProps.width > currentProps.width) {
+        if (vw >= respProps.breakpoint) {
+          if (respProps.breakpoint > currentProps.breakpoint) {
             currentProps = { ...currentProps, ...respProps };
           }
         }

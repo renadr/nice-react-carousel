@@ -43,6 +43,7 @@ yarn add nice-react-carousel
 | arrows          | boolean                                     | true     | Should show the arrow buttons (previous/next) when it's possible. |
 | customNextArrow | ReactElement                                |          | Custom the next button.                                           |
 | customPrevArrow | ReactElement                                |          | Custom the previous button.                                       |
+| responsive      | {breakpoint: number, ...}                   |          | Change properties depending on the breakpoint (Mobile first).     |
 
 ## Help ?
 
